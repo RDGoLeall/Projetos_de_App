@@ -1,0 +1,109 @@
+import React from 'react';
+import { View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
+
+const contatos = [
+  { id: '1', nome: 'Contato 7', hora: '12:06', lido: true },
+  { id: '2', nome: 'Contato 6', hora: '12:06', lido: true },
+  { id: '3', nome: 'Contato 5', hora: '12:05', lido: false },
+  { id: '4', nome: 'Contato 4', hora: '12:00', lido: true },
+  { id: '5', nome: 'Contato 3', hora: '12:00', lido: true },
+];
+
+export default function ListaContatos() {
+  const renderizarContato = ({ item }) => (
+    <View style={styles.linhaContato}>
+      <View style={styles.avatar}>
+         <Text style={styles.iconeAvatar}>👤</Text>
+      </View>
+      <View style={styles.infoContato}>
+        <Text style={styles.nomeContato}>{item.nome}</Text>
+        <Text style={[styles.statusLido, item.lido ? styles.statusAzul : styles.statusCinza]}>
+          {item.lido ? '✓✓' : '✓'}
+        </Text>
+      </View>
+      <Text style={styles.hora}>{item.hora}</Text>
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.cabecalhoSecaoVerde}>
+        <Text style={styles.tituloSecaoBranco}>💬 Mensagens Recentes</Text>
+      </View>
+      <FlatList
+        data={contatos}
+        keyExtractor={(item) => item.id}
+        renderItem={renderizarContato}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F2F5',
+    padding: 15,
+    paddingTop: 40,
+  },
+  cabecalhoSecaoVerde: {
+    backgroundColor: '#128C7E',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 15,
+  },
+  tituloSecaoBranco: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
+  linhaContato: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEEEE',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginBottom: 5,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#CFD8DC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  iconeAvatar: {
+    fontSize: 24,
+  },
+  infoContato: {
+    flex: 1,
+  },
+  nomeContato: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 2,
+  },
+  statusLido: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  statusAzul: {
+    color: '#34B7F1',
+  },
+  statusCinza: {
+    color: '#999999',
+  },
+  hora: {
+    fontSize: 12,
+    color: '#888888',
+    marginBottom: 15,
+  },
+});
