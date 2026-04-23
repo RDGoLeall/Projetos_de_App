@@ -1,0 +1,84 @@
+import React from 'react';
+import { View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
+
+const produtos = [
+  { id: '1', nome: 'Notebook Dell', valor: 'R$ 4.500', dataCadastro: '10/05/2026', quantidade: 5 },
+  { id: '2', nome: 'Mouse Logitech', valor: 'R$ 150', dataCadastro: '12/05/2026', quantidade: 20 },
+  { id: '3', nome: 'Teclado Mecânico', valor: 'R$ 300', dataCadastro: '15/05/2026', quantidade: 12 },
+  { id: '4', nome: 'Monitor LG 24"', valor: 'R$ 800', dataCadastro: '18/05/2026', quantidade: 8 },
+  { id: '5', nome: 'Cadeira Gamer', valor: 'R$ 1.200', dataCadastro: '20/05/2026', quantidade: 3 },
+];
+
+export default function ListaProdutos() {
+  const renderizarProduto = ({ item }) => (
+    <View style={styles.cardProduto}>
+      <Text style={styles.tituloProduto}>{item.nome}</Text>
+      <Text style={styles.textoProduto}>Valor: <Text style={styles.destaqueValor}>{item.valor}</Text></Text>
+      <Text style={styles.textoProduto}>Data: {item.dataCadastro}</Text>
+      <Text style={styles.textoProduto}>Estoque: {item.quantidade} un.</Text>
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.cabecalhoSecaoAzul}>
+        <Text style={styles.tituloSecaoBranco}>📦 Produtos em Estoque</Text>
+      </View>
+      <FlatList
+        data={produtos}
+        keyExtractor={(item) => item.id}
+        renderItem={renderizarProduto}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F2F5',
+    padding: 15,
+    paddingTop: 40,
+  },
+  cabecalhoSecaoAzul: {
+    backgroundColor: '#0056b3',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 15,
+  },
+  tituloSecaoBranco: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
+  cardProduto: {
+    backgroundColor: '#FFFFFF',
+    padding: 15,
+    marginBottom: 12,
+    borderRadius: 10,
+    borderLeftWidth: 5,
+    borderLeftColor: '#0056b3',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  tituloProduto: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#333333',
+    marginBottom: 6,
+  },
+  textoProduto: {
+    fontSize: 14,
+    color: '#555555',
+    marginBottom: 2,
+  },
+  destaqueValor: {
+    color: '#2E86C1',
+    fontWeight: 'bold',
+  },
+});
